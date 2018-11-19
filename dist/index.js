@@ -47,7 +47,7 @@ var ping = function ping(_ref) {
     xhr.ontimeout = isOffline;
     xhr.onload = function () {
       var response = xhr.responseText.trim();
-      if (!response || !onlineResponses.includes(response.status)) {
+      if (!response || !onlineResponses.includes(xhr.status)) {
         isOffline();
       } else {
         isOnline();
