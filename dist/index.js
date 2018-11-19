@@ -30,7 +30,8 @@ var unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chro
 
 var ping = function ping(_ref) {
   var url = _ref.url,
-      timeout = _ref.timeout;
+      timeout = _ref.timeout,
+      onlineResponses = _ref.onlineResponses;
 
   return new Promise(function (resolve) {
     var isOnline = function isOnline() {
@@ -46,7 +47,7 @@ var ping = function ping(_ref) {
     xhr.ontimeout = isOffline;
     xhr.onload = function () {
       var response = xhr.responseText.trim();
-      if (!response) {
+      if (!response || !onlineResponses.includes(response.status)) {
         isOffline();
       } else {
         isOnline();
@@ -65,7 +66,8 @@ var propTypes = {
   polling: _propTypes2.default.oneOfType([_propTypes2.default.shape({
     url: _propTypes2.default.string,
     interval: _propTypes2.default.number,
-    timeout: _propTypes2.default.number
+    timeout: _propTypes2.default.number,
+    onlineResponses: _propTypes2.default.array
   }), _propTypes2.default.bool]),
   wrapperType: _propTypes2.default.string
 };
@@ -79,7 +81,8 @@ var defaultPollingConfig = {
   enabled: inBrowser && unsupportedUserAgentsPattern.test(navigator.userAgent),
   url: "https://ipv4.icanhazip.com/",
   timeout: 5000,
-  interval: 5000
+  interval: 5000,
+  onlineResponses: [200]
 };
 
 // base class that detects offline/online changes
@@ -188,9 +191,10 @@ var Base = function (_Component) {
       this.pollingId = setInterval(function () {
         var _getPollingConfig2 = _this2.getPollingConfig(),
             url = _getPollingConfig2.url,
-            timeout = _getPollingConfig2.timeout;
+            timeout = _getPollingConfig2.timeout,
+            onlineResponses = _getPollingConfig2.onlineResponses;
 
-        ping({ url: url, timeout: timeout }).then(function (online) {
+        ping({ url: url, timeout: timeout, onlineResponses: onlineResponses }).then(function (online) {
           online ? _this2.goOnline() : _this2.goOffline();
         });
       }, interval);
