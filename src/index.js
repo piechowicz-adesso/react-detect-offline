@@ -42,6 +42,7 @@ const propTypes = {
   polling: PropTypes.oneOfType([
     PropTypes.shape({
       url: PropTypes.string,
+      headers: PropTypes.array,
       interval: PropTypes.number,
       timeout: PropTypes.number,
       onlineResponses: PropTypes.array
@@ -53,7 +54,8 @@ const propTypes = {
 
 const defaultProps = {
   polling: true,
-  wrapperType: "span"
+  wrapperType: "span",
+  headers: []
 };
 
 const defaultPollingConfig = {
@@ -61,7 +63,8 @@ const defaultPollingConfig = {
   url: "https://ipv4.icanhazip.com/",
   timeout: 5000,
   interval: 5000,
-  onlineResponses: [200]
+  onlineResponses: [200],
+  headers: []
 };
 
 // base class that detects offline/online changes
@@ -148,8 +151,13 @@ class Base extends Component {
   startPolling() {
     const { interval } = this.getPollingConfig();
     this.pollingId = setInterval(() => {
-      const { url, timeout, onlineResponses } = this.getPollingConfig();
-      ping({ url, timeout, onlineResponses }).then(online => {
+      const {
+        url,
+        headers,
+        timeout,
+        onlineResponses
+      } = this.getPollingConfig();
+      ping({ url, headers, timeout, onlineResponses }).then(online => {
         online ? this.goOnline() : this.goOffline();
       });
     }, interval);
