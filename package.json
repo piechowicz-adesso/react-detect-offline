@@ -1,11 +1,11 @@
 {
-  "name": "react-detect-offline",
-  "version": "2.1.4",
+  "name": "react-detect-offline-2",
+  "version": "2.2.0",
   "description": "Offline and Online components for React",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrisbolin/react-detect-offline.git"
+    "url": "git+https://github.com/piechowicz-adesso/react-detect-offline.git"
   },
   "author": "Chris Bolin",
   "license": "MIT",
@@ -37,18 +37,12 @@
   "homepage": "https://github.com/chrisbolin/react-detect-offline#readme",
   "scripts": {
     "build": "babel src/index.js -o dist/index.js",
-    "test": "jest spec --watch",
+    "test": "jest spec",
     "lint": "eslint src/ demo/src",
     "prettier": "prettier src/** demo/src/** --write",
     "test.cover": "jest spec --coverage"
   },
-  "keywords": [
-    "react",
-    "offline",
-    "online",
-    "detect",
-    "disconnect"
-  ],
+  "keywords": ["react", "offline", "online", "detect", "disconnect"],
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js",

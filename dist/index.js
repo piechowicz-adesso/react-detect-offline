@@ -30,6 +30,7 @@ var unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chro
 
 var ping = function ping(_ref) {
   var url = _ref.url,
+      headers = _ref.headers,
       timeout = _ref.timeout,
       onlineResponses = _ref.onlineResponses;
 
@@ -53,6 +54,12 @@ var ping = function ping(_ref) {
         isOnline();
       }
     };
+
+    if (headers && headers.length) {
+      headers.forEach(function (header) {
+        return xhr.setRequestHeader(header.name, header.value);
+      });
+    }
 
     xhr.open("GET", url);
     xhr.timeout = timeout;

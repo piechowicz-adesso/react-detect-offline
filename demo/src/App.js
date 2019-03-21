@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Offline, Online, Detector } from "react-detect-offline";
+import { Offline, Online, Detector } from "react-detect-offline-2";
 import "./App.css";
 
 class App extends Component {

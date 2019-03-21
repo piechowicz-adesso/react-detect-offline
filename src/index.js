@@ -6,7 +6,7 @@ const inBrowser = typeof navigator !== "undefined";
 // these browsers don't fully support navigator.onLine, so we need to use a polling backup
 const unsupportedUserAgentsPattern = /Windows.*Chrome|Windows.*Firefox|Linux.*Chrome/;
 
-const ping = ({ url, timeout, onlineResponses }) => {
+const ping = ({ url, headers, timeout, onlineResponses }) => {
   return new Promise(resolve => {
     const isOnline = () => resolve(true);
     const isOffline = () => resolve(false);
@@ -23,6 +23,12 @@ const ping = ({ url, timeout, onlineResponses }) => {
         isOnline();
       }
     };
+
+    if (headers && headers.length) {
+      headers.forEach(header =>
+        xhr.setRequestHeader(header.name, header.value)
+      );
+    }
 
     xhr.open("GET", url);
     xhr.timeout = timeout;
