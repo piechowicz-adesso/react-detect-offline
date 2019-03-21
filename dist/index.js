@@ -55,14 +55,18 @@ var ping = function ping(_ref) {
       }
     };
 
+    console.log(headers);
+
+    xhr.open("GET", url);
+
     if (headers && headers.length) {
       headers.forEach(function (header) {
         return xhr.setRequestHeader(header.name, header.value);
       });
     }
 
-    xhr.open("GET", url);
     xhr.timeout = timeout;
+
     xhr.send();
   });
 };
@@ -72,6 +76,7 @@ var propTypes = {
   onChange: _propTypes2.default.func,
   polling: _propTypes2.default.oneOfType([_propTypes2.default.shape({
     url: _propTypes2.default.string,
+    headers: _propTypes2.default.array,
     interval: _propTypes2.default.number,
     timeout: _propTypes2.default.number,
     onlineResponses: _propTypes2.default.array
@@ -81,7 +86,8 @@ var propTypes = {
 
 var defaultProps = {
   polling: true,
-  wrapperType: "span"
+  wrapperType: "span",
+  headers: []
 };
 
 var defaultPollingConfig = {
@@ -89,7 +95,8 @@ var defaultPollingConfig = {
   url: "https://ipv4.icanhazip.com/",
   timeout: 5000,
   interval: 5000,
-  onlineResponses: [200]
+  onlineResponses: [200],
+  headers: []
 };
 
 // base class that detects offline/online changes
@@ -198,10 +205,11 @@ var Base = function (_Component) {
       this.pollingId = setInterval(function () {
         var _getPollingConfig2 = _this2.getPollingConfig(),
             url = _getPollingConfig2.url,
+            headers = _getPollingConfig2.headers,
             timeout = _getPollingConfig2.timeout,
             onlineResponses = _getPollingConfig2.onlineResponses;
 
-        ping({ url: url, timeout: timeout, onlineResponses: onlineResponses }).then(function (online) {
+        ping({ url: url, headers: headers, timeout: timeout, onlineResponses: onlineResponses }).then(function (online) {
           online ? _this2.goOnline() : _this2.goOffline();
         });
       }, interval);

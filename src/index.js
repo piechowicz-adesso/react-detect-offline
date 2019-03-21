@@ -24,14 +24,17 @@ const ping = ({ url, headers, timeout, onlineResponses }) => {
       }
     };
 
+    console.log(headers);
+
     xhr.open("GET", url);
-    xhr.timeout = timeout;
 
     if (headers && headers.length) {
       headers.forEach(header =>
         xhr.setRequestHeader(header.name, header.value)
       );
     }
+
+    xhr.timeout = timeout;
 
     xhr.send();
   });
