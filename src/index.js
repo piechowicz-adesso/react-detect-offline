@@ -24,8 +24,6 @@ const ping = ({ url, headers, timeout, onlineResponses }) => {
       }
     };
 
-    console.log(headers);
-
     xhr.open("GET", url);
 
     if (headers && headers.length) {

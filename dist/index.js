@@ -55,8 +55,6 @@ var ping = function ping(_ref) {
       }
     };
 
-    console.log(headers);
-
     xhr.open("GET", url);
 
     if (headers && headers.length) {
