@@ -32,10 +32,10 @@ const ping = ({ url, headers, timeout, onlineResponses }) => {
       );
     }
 
-    xhr.setRequestHeader(
-      "Authorization",
-      "Bearer " + localStorage.getItem("tiger.usertoken")
-    );
+    // xhr.setRequestHeader(
+    //  "Authorization",
+    //  "Bearer " + localStorage.getItem("tiger.usertoken")
+    // );
 
     xhr.timeout = timeout;
 

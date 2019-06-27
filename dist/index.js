@@ -63,7 +63,10 @@ var ping = function ping(_ref) {
       });
     }
 
-    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("tiger.usertoken"));
+    // xhr.setRequestHeader(
+    //  "Authorization",
+    //  "Bearer " + localStorage.getItem("tiger.usertoken")
+    // );
 
     xhr.timeout = timeout;
 
