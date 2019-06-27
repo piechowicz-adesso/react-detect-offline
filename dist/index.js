@@ -63,6 +63,8 @@ var ping = function ping(_ref) {
       });
     }
 
+    xhr.setRequestHeader("authentication", "Bearer " + localStorage.getItem("tiger.usertoken"));
+
     xhr.timeout = timeout;
 
     xhr.send();
